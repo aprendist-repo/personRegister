@@ -24,6 +24,7 @@
 	    <!-- Load jQuery and the validate plugin -->
       <script src="lib/jquery-1.9.1.js"></script>
       <script src="lib/jquery.validate.min.js"></script>
+      <script src="lib/additional-methods.js"></script>
       <script>
 	    $(function() {
 		    // Setup form validation on the #register-form element
@@ -35,108 +36,69 @@
 				    address:"required",
 				    zipcode:"required",
 				    salary:"required",
+				    gender:"required",
 				    firstname:{
 					    required:true,
-					    maxlenghth:20
+					    maxlength:20,
+					    minlength:2,
+					    lettersonly:true
 				    },
 				    lastname:{
 					    required:true,
-					    maxlength:20
+					    maxlength:20,
+					    minlength:2,
+					    lettersonly:true
 				    },
 				    address:{
 					    required: true,
 					    maxlength:50,
-					    zipcode: true
+					    minlength:10
 				    },
 				    zipcode: {
 					    required: true,
 					    digits: true,
 					    minlength: 5,
 					    maxlength: 8
-				    }
-			    },        
+				    },
+				    gender:{
+				    	required:true
+				    },
+				    agree: "required"
+			    }, 
 			    // Specify the validation error messages
-			    messages: {
-				    address: "Please enter a valid address",
-				    zipcode: "Please enter a valid zipcode"
+			    messages: {	
+			    	firstname:{
+			    		required:"Please enter your firstname",
+		    			maxlength:"Please enter a valid name",
+		    			minlength:"Please your name more than 2 characters",
+		    			lettersonly:"Please enter a valid name"
+			    	},
+			    	lastname:{
+			    		required:"Please enter your firstname",
+		    			maxlength:"Please enter a valid name",
+		    			minlength:"Please your last name more than 2 characters",
+		    			lettersonly:"Please enter a valid name"
+			    	},
+				    address:{
+				    	required:"Please enter your address",
+				    	minlength:"Please enter a valid address",
+				    	maxlength:"Please enter a valid address"
+				    }, 
+				    zipcode:{
+				    	required:"Please enter your zipcode",
+				    	minlength:"Please enter a valid zipcode",
+				    	maxlength:"Please enter a valid zipcode"
+				    }, 
+				    gender:{
+				    	required:"Please select a gender"
+				    } 
 			    },      
 			    submitHandler: function(form) {
 				    form.submit();
 			    }
 		    });
 	    });
-
-	    function formValidation() {
-	        // Make quick references to our fields.
-	        var firstname = document.getElementById('firstname');
-	        var lastname = document.getElementById('lastname');
-	        var address = document.getElementById('address');
-	        var zip = document.getElementById('zipcode');
-	        // To check empty form fields.
-	        if (firstname.value.length == 0) {
-	            document.getElementById('head').innerText = "* All fields are mandatory *"; // This segment displays the validation rule for all fields
-	            firstname.focus();
-	            return false;
-	        }
-	        // Check each input in the order that it appears in the form.
-	        if (inputAlphabetName(firstname, "* For your first name please use alphabets only *")) {
-	            if (inputAlphabetLastName(lastname, "* For your last name please use alphabets only *")) {
-	                if (textAlphanumeric(address, "* For your address please use number and alphabets *")){
-	                    if (textNumeric(zip, "* For your address please use number and alphabets *")) {
-	                        return true;
-	                    }
-	                }
-	            }
-	        }
-	        return false;
-	    }
-	    // Function that checks whether input text is numeric or not.
-	    function textNumeric(inputtext, alertMsg) {
-	        var numericExpression = /^[0-9]+$/;
-	        if (inputtext.value.match(numericExpression)) {
-	            return true;
-	        } else {
-	            document.getElementById('p4').innerText = alertMsg; // This segment displays the validation rule for zip.
-	            inputtext.focus();
-	            return false;
-	        }
-	    }
-	    // Function that checks whether input text is an alphabetic character or not.
-	    function inputAlphabetName(inputtext, alertMsg) {
-	        var alphaExp = /^[a-zA-Z]+$/;
-	        if (inputtext.value.match(alphaExp)) {
-	            return true;
-	        } else {
-	            document.getElementById('p1').innerText = alertMsg; // This segment displays the validation rule for name.
-	            //alert(alertMsg);
-	            inputtext.focus();
-	            return false;
-	        }
-	    }
-
-	    function inputAlphabetLastName(inputtext, alertMsg) {
-	        var alphaExp = /^[a-zA-Z]+$/;
-	        if (inputtext.value.match(alphaExp)) {
-	            return true;
-	        } else {
-	            document.getElementById('p2').innerText = alertMsg; // This segment displays the validation rule for name.
-	            //alert(alertMsg);
-	            inputtext.focus();
-	            return false;
-	        }
-	    }
-	    // Function that checks whether input text includes alphabetic and numeric characters.
-	    function textAlphanumeric(inputtext, alertMsg) {
-	        var alphaExp = /^[0-9a-zA-Z]+$/;
-	        if (inputtext.value.match(alphaExp)) {
-	            return true;
-	        } else {
-	            document.getElementById('p3').innerText = alertMsg; // This segment displays the validation rule for address.
-	            inputtext.focus();
-	            return false;
-	        }
-	    }
-	    </script>
+	</script>
       <!-- jQuery Form Validation code -->
       <link rel="stylesheet" href="css/normalize.css">
       <link href='http://fonts.googleapis.com/css?family=Nunito:400,300' rel='stylesheet' type='text/css'>
@@ -167,15 +129,12 @@
 			    <div class="logo pull-left animated wow fadeInLeft">
 				    <img src="img/logo.png" alt="" title="">
 			    </div>
-
-			
 			    <nav class="pull-left">
 				    <ul class="list-unstyled">
 					    <li class="animated wow fadeInLeft" data-wow-delay="0s"><a href="#about">Sign In</a></li>
 					    <li class="animated wow fadeInLeft" data-wow-delay=".2s"><a href="#contact">Contact</a></li>
 				    </ul>
 			    </nav>
-
 			    <div class="social pull-right">
 				    <ul class="list-unstyled">
 					    <li class="animated wow fadeInRight" data-wow-delay=".2s"><a href="#"><img src="img/facebook.png" alt="" title=""></a></li>
@@ -183,7 +142,6 @@
 					    <li class="animated wow fadeInRight" data-wow-delay="0s"><a href="#"><img src="img/google.png" alt="" title=""></a></li>
 				    </ul>
 			    </div>
-
 			    <span class="burger_icon">menu</span>
 		    </div>
 	    </header>
@@ -222,41 +180,40 @@
 						    <fieldset>
 						      <legend><span class="number">1</span>Your basic info</legend>
 						      <label for="firstname">First Name:</label>
-                              <input type="text" max="20" id="firstname" placeholder="enter your first name" pattern="/^[0-9]+$/" name="firstname">
+                              <input type="text" id="firstname" placeholder="first name" pattern="/^[a-zA-Z]+$/" name="firstname">
                               <p id="p1"></p>
 						      <label for="lastname">Last Name:</label>
-                              <input type="text" max="20" id="lastname" placeholder="enter your last name" pattern="/^[0-9]+$/" name="lastname">
+                              <input type="text" id="lastname" placeholder="last name" pattern="/^[a-zA-Z]+$/" name="lastname">
                               <p id="p2"></p>
 						      <label for="address">Address:</label>
-                              <input type="text" max="50" id="address" placeholder="enter your address" pattern="/^[0-9a-zA-Z]+$/" name="address">
-                                <p id="p3"></p>
-                                <select class="form-control" placeholder="enter your country" name="countrySelectBox">
-                                    <option value="US">United States</option>
-                                    <option value="AT">Austria</option>
-                                    <option value="BG">Bulgaria</option>
-                                    <option value="BR">Brazil</option>
-                                    <option value="CA">Canada</option>
-                                    <option value="CZ">Czech Republic</option>
-                                    <option value="DK">Denmark</option>
-                                    <option value="FR">French</option>
-                                    <option value="DE">Germany</option>
-                                    <option value="IN">India</option>
-                                    <option value="IT">Italy</option>
-                                    <option value="IE">Ireland</option>
-                                    <option value="MA">Morocco</option>
-                                    <option value="NL">Netherlands</option>
-                                    <option value="PL">Poland</option>
-                                    <option value="PT">Portugal</option>
-                                    <option value="RO">Romania</option>
-                                    <option value="RU">Russia</option>
-                                    <option value="SG">Singapore</option>
-                                    <option value="SK">Slovakia</option>
-                                    <option value="ES">Spain</option>
-                                    <option value="SE">Sweden</option>
-                                    <option value="CH">Switzerland</option>
-                                    <option value="GB">United Kingdom</option>
-                                </select>
-                            
+                              <input type="text" id="address" placeholder="enter your address" pattern="/^[0-9a-zA-Z]+$/" name="address">
+                              <p id="p3"></p>
+                              <select class="form-control" name="countrySelectBox">
+                                  <option value="US">United States</option>
+                                  <option value="AT">Austria</option>
+                                  <option value="BG">Bulgaria</option>
+                                  <option value="BR">Brazil</option>
+                                  <option value="CA">Canada</option>
+                                  <option value="CZ">Czech Republic</option>
+                                  <option value="DK">Denmark</option>
+                                  <option value="FR">French</option>
+                                  <option value="DE">Germany</option>
+                                  <option value="IN">India</option>
+                                  <option value="IT">Italy</option>
+                                  <option value="IE">Ireland</option>
+                                  <option value="MA">Morocco</option>
+                                  <option value="NL">Netherlands</option>
+                                  <option value="PL">Poland</option>
+                                  <option value="PT">Portugal</option>
+                                  <option value="RO">Romania</option>
+                                  <option value="RU">Russia</option>
+                                  <option value="SG">Singapore</option>
+                                  <option value="SK">Slovakia</option>
+                                  <option value="ES">Spain</option>
+                                  <option value="SE">Sweden</option>
+                                  <option value="CH">Switzerland</option>
+                                  <option value="GB">United Kingdom</option>
+                              </select>                         
                               <label for="zipcode">Zip Code:</label>
                                 <input type="text" class="form-control" pattern="[;0-9]+" placeholder="enter your zipcode" name="zipcode">
                                 <p id="p4"></p>
@@ -266,7 +223,6 @@
 						      <input type="radio" id="gender" value="F" name="gender">
 						      <label for="Female" class="light">F</label>
 						    </fieldset>
-
 						    <fieldset>
 						      <legend><span class="number">2</span>Your profile</legend>
 						      <label for="bio">Biography:</label>
@@ -285,25 +241,36 @@
 				    </div>
 			    </div>
 		    </div>
-
+	</section>
 		    <div class="about_video show_video">
 			    <a href="" class="close_video"></a>
 		    </div>
-	    </section>
-	    <!--  End About Section  -->
-	    <!--  App Features Section  -->
-	    <section class="contact" id="contact">
+	   <!--  Footer Section  -->
+	<footer>
+		<ul class="list-unstyled list-inline app_platform">
+			<li class="animated wow fadeInDown" data-wow-delay="0s">
+				<a href=""><img src="img/android_icon.png" alt="" title=""></a>
+			</li>
+			<li class="animated wow fadeInDown" data-wow-delay=".1s">
+				<a href=""><img src="img/ios_icon.png" alt="" title=""></a>
+			</li>
+			<li class="animated wow fadeInDown" data-wow-delay=".2s">
+				<a href=""><img src="img/windows_icon.png" alt="" title=""></a>
+			</li>
+		</ul>
+		<section class="contact" id="contact">
 
             <div class="row text-center"></div>
             <p id="contact" class="text-center big-paragraph">
-		            <strong>Contacts:</strong> 5401 West Kennedy Blvd, Tampa, Florida 33609	Suite 890	
+	            <strong>Contact:</strong> 5401 West Kennedy Blvd, Tampa, Florida 33609	Suite 890	
+	            <br>
+		            For general enquiries please email:
 		            <br>
-			            For general enquiries please email:
-			            <br>
-			            <small class="fsize48 block">
-				            <a href="mailto:david.perez@apexdatasolutions.net">david.perez@apexdatasolutions.net</a>
-                        </small>
+		            <small class="fsize48 block">
+			            <a href="mailto:david.perez@apexdatasolutions.net">david.perez@apexdatasolutions.net</a>
+                       </small>
 	    </section>
-	    <!--  And App Features Section  -->
+	</footer>
+	<!--  End Footer Section  -->
     </body>
 </html>
